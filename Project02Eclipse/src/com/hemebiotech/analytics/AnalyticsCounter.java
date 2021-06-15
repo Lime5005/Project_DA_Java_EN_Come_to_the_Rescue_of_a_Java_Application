@@ -3,10 +3,7 @@ package com.hemebiotech.analytics;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class AnalyticsCounter {
 
@@ -19,7 +16,7 @@ public class AnalyticsCounter {
 		String path = "/Users/lime/IdeaProjects/Project2_DA_Java_biotech/Project02Eclipse/symptoms.txt";
 		symptomList = readingFile(path);
 		// Sorting:
-		ArrayList<String> sortedData = sortingFile((ArrayList<String>) symptomList);
+		TreeMap<String, Integer> sortedData = sortingFile((ArrayList<String>) symptomList);
 		// Saving:
 		savingFile(sortedData);
 
@@ -42,30 +39,34 @@ public class AnalyticsCounter {
 	 * and make sure no duplicate elements,
 	 * then count the occurrence of each symptom in the list.
 	 * @param symptoms The list to analysis.
-	 * @return  A sorted and counted list naming "sortedSymptoms".
+	 * @return  A TreeMap with Key, Value pairs.
 	 */
-	private ArrayList<String> sortingFile(ArrayList<String> symptoms) {
+	private TreeMap<String, Integer> sortingFile(ArrayList<String> symptoms) {
 
 		TreeSet<String> treeSetSymptoms = new TreeSet<>(symptoms);
-		ArrayList<String> sortedSymptoms = new ArrayList<>();
+
+		TreeMap<String, Integer> treeMap = new TreeMap<>();
 		for (String symptom : treeSetSymptoms) {
-			sortedSymptoms.add(symptom + "=" + Collections.frequency(symptoms, symptom));
+			treeMap.put(symptom, Collections.frequency(symptoms, symptom));
 		}
 
-		return sortedSymptoms;
+		return treeMap;
 	}
 
 	/**
-	 * This method will write the sortedSymptoms line by line in a new file "results.out".
-	 * @param list The sortedSymptoms from the method above "sortingFile".
+	 * This method will write the treeMap(Key=value) line by line in a new file "results.out".
+	 * @param treeMap The treeMap from the method above "sortingFile".
 	 */
-	public void savingFile(ArrayList<String> list) {
+	public void savingFile(TreeMap<String, Integer> treeMap) {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter("results.out", StandardCharsets.UTF_8);
 
-			for (String st : list) {
-				writer.println(st);
+			for(Map.Entry<String,Integer> entry : treeMap.entrySet()) {
+				String key = entry.getKey();
+				Integer value = entry.getValue();
+
+				writer.println(key + "=" + value);
 			}
 			writer.close();
 
