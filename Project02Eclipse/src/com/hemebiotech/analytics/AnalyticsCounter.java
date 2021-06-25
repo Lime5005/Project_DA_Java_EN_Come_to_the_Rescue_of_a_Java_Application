@@ -8,21 +8,6 @@ import java.util.*;
 public class AnalyticsCounter {
 
 	/**
-	 * This method will prompt all the other methods.
-	 */
-	public void startAnalysis() {
-		// Reading:
-		List<String> symptomList;
-		String path = "/Users/lime/IdeaProjects/Project2_DA_Java_biotech/Project02Eclipse/symptoms.txt";
-		symptomList = readingFile(path);
-		// Sorting:
-		TreeMap<String, Integer> sortedData = sortingFile((ArrayList<String>) symptomList);
-		// Saving:
-		savingFile(sortedData);
-
-	}
-
-	/**
 	 * This method is to read and put all symptoms in a list.
 	 * @param path Where located the text file to analysis.
 	 * @return The raw data(symptoms) in a list or an empty list if no data.
@@ -41,7 +26,7 @@ public class AnalyticsCounter {
 	 * @param symptoms The list to analysis.
 	 * @return  A TreeMap with Key, Value pairs.
 	 */
-	private TreeMap<String, Integer> sortingFile(ArrayList<String> symptoms) {
+	public TreeMap<String, Integer> sortingFile(ArrayList<String> symptoms) {
 
 		TreeSet<String> treeSetSymptoms = new TreeSet<>(symptoms);
 
