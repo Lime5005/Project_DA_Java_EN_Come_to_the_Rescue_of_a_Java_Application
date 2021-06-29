@@ -14,7 +14,7 @@ public class AnalyticsCounter {
 	 */
 	public List<String> readingFile(String path) {
 		List<String> result;
-		result = new ReadSymptomDataFromFile(path).GetSymptoms();
+		result = new ReadSymptomDataFromFile(path).getSymptoms();
 		return result;
 	}
 
