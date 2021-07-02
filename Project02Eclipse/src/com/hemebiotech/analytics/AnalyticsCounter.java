@@ -43,9 +43,8 @@ public class AnalyticsCounter {
 	 * @param treeMap The treeMap from the method above "sortingFile".
 	 */
 	public void savingFile(TreeMap<String, Integer> treeMap) {
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter("results.out", StandardCharsets.UTF_8);
+
+		try (PrintWriter writer = new PrintWriter("results.out", StandardCharsets.UTF_8)){
 
 			for(Map.Entry<String,Integer> entry : treeMap.entrySet()) {
 				String key = entry.getKey();
@@ -53,7 +52,6 @@ public class AnalyticsCounter {
 
 				writer.println(key + "=" + value);
 			}
-			writer.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
